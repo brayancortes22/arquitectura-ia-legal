@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Autorización de TikTok · Arquitectura IA Autopilot</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Autorización de TikTok</h1>
+  <p id="msg">Procesando…</p>
+  <p>Esta página solo muestra el resultado de la autorización. No guarda ni envía ningún dato:
+     el propietario copia el código en su herramienta local, que lo canjea directamente con TikTok.</p>
+  <p><a href="index.html">Inicio</a> · <a href="privacy.html">Política de privacidad</a></p>
+</main>
+<script>
+  const p = new URLSearchParams(location.search);
+  const msg = document.getElementById("msg");
+  if (p.get("code")) {
+    msg.innerHTML = "✅ Autorización concedida. Copia este código en la herramienta:<br><code id='c'></code>";
+    document.getElementById("c").textContent = p.get("code");
+  } else if (p.get("error")) {
+    msg.textContent = "❌ Autorización cancelada: " + (p.get("error_description") || p.get("error"));
+  } else {
+    msg.textContent = "No hay ninguna autorización pendiente.";
+  }
+</script>
+</body>
+</html>
